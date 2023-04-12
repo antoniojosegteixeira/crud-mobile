@@ -1,4 +1,4 @@
-# CRUD Node
+# CRUD Mobile
 Uma aplicação CRUD em Flutter
 
 ## Inicializando o projeto
