@@ -5,10 +5,10 @@ import 'package:softsul_mobile/core/error/failures.dart';
 import 'package:softsul_mobile/core/usecase/usecase.dart';
 import 'package:softsul_mobile/features/crud/data/repositories/product_repository_impl.dart';
 
-class AddNewProduct implements UseCase<bool, EditProductParams> {
+class EditProduct implements UseCase<bool, EditProductParams> {
   final ProductRepositoryImpl productRepository;
 
-  AddNewProduct({
+  EditProduct({
     required this.productRepository,
   });
 

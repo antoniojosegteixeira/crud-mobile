@@ -38,21 +38,16 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       ),
     );
 
-    try {
-      if (response.statusCode == 200) {
-        final listOfProducts = <ProductModel>[];
-        //final jsonList = jsonDecode(response.body) as List<Map<String, dynamic>>;
-        final jsonList = jsonDecode(response.body) as List<dynamic>;
+    if (response.statusCode == 200) {
+      final listOfProducts = <ProductModel>[];
+      final jsonList = jsonDecode(response.body) as List<dynamic>;
 
-        for (final itemJson in jsonList) {
-          final result = ProductModel.fromJson(itemJson);
-          listOfProducts.add(result);
-        }
-
-        return listOfProducts;
+      for (final itemJson in jsonList) {
+        final result = ProductModel.fromJson(itemJson);
+        listOfProducts.add(result);
       }
-    } catch (err) {
-      print(err);
+
+      return listOfProducts;
     }
 
     return Future.error(ServerFailure());

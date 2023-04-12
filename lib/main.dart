@@ -16,8 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(),
+        '/': (context) => const MyHomePage(),
       },
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
     );
   }
 }

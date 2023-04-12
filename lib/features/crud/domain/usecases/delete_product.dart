@@ -5,23 +5,23 @@ import 'package:softsul_mobile/core/error/failures.dart';
 import 'package:softsul_mobile/core/usecase/usecase.dart';
 import 'package:softsul_mobile/features/crud/data/repositories/product_repository_impl.dart';
 
-class AddNewProduct implements UseCase<bool, EditProductParams> {
+class DeleteProduct implements UseCase<bool, DeleteProductParams> {
   final ProductRepositoryImpl productRepository;
 
-  AddNewProduct({
+  DeleteProduct({
     required this.productRepository,
   });
 
   @override
-  Future<Either<Failure, bool>> call(EditProductParams params) async {
+  Future<Either<Failure, bool>> call(DeleteProductParams params) async {
     return await productRepository.deleteProduct(
       id: params.id,
     );
   }
 }
 
-class EditProductParams extends Equatable {
-  const EditProductParams({
+class DeleteProductParams extends Equatable {
+  const DeleteProductParams({
     required this.id,
   });
   final String id;

@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:softsul_mobile/features/crud/domain/entities/product_entity.dart';
+import 'package:softsul_mobile/features/crud/presentation/cubit/product_cubit.dart';
+import 'package:softsul_mobile/features/crud/presentation/widgets/form_modal.dart';
+import 'package:softsul_mobile/injection_container.dart';
 
-class ListCard extends StatelessWidget {
+class ListCard extends StatefulWidget {
   const ListCard({Key? key, required this.item}) : super(key: key);
 
   final ProductEntity item;
+
+  @override
+  State<ListCard> createState() => _ListCardState();
+}
+
+class _ListCardState extends State<ListCard> {
+  late final ProductCubit cubit;
+
+  @override
+  void initState() {
+    cubit = sl<ProductCubit>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +37,7 @@ class ListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    item.clientName,
+                    widget.item.clientName,
                     style: const TextStyle(
                       fontSize: 18.0,
                     ),
@@ -36,28 +52,28 @@ class ListCard extends StatelessWidget {
                     children: [
                       const SizedBox(height: 6.0),
                       Text(
-                        'Id: ${item.id}',
+                        'Id: ${widget.item.id}',
                         style: TextStyle(
                           color: Colors.grey[600],
                         ),
                       ),
                       const SizedBox(height: 4.0),
                       Text(
-                        'Data do Pedido: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(item.orderDate))} ',
+                        'Data do Pedido: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(widget.item.orderDate))} ',
                         style: TextStyle(
                           color: Colors.grey[600],
                         ),
                       ),
                       const SizedBox(height: 2.0),
                       Text(
-                        'Data da Entrega: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(item.deliveryDate))}',
+                        'Data da Entrega: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(widget.item.deliveryDate))}',
                         style: TextStyle(
                           color: Colors.grey[600],
                         ),
                       ),
                       const SizedBox(height: 2.0),
                       Text(
-                        'Status: ${item.status}',
+                        'Status: ${widget.item.status}',
                         style: TextStyle(
                           color: Colors.grey[600],
                         ),
@@ -70,13 +86,14 @@ class ListCard extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            // Code to handle edit button press
+                            openFormModal(
+                                context: context, product: widget.item);
                           },
                           child: const Icon(Icons.edit),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Code to handle edit button press
+                            cubit.deleteProduct(id: widget.item.id);
                           },
                           child: const Icon(Icons.delete),
                         ),
